@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{45583FEB-DF4B-458D-9E6B-2899D164F5E0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CML.Infrastructure</RootNamespace>
+    <AssemblyName>CML.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.4.3.23, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.4.3\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.4.3.23, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.4.3\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.4.3.23, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.4.3\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\RabbitMQ.Client.4.1.3\lib\net451\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Components\Autofac\AutofacContainer.cs" />
+    <Compile Include="Common\PageList.cs" />
+    <Compile Include="Components\IObjectContainer.cs" />
+    <Compile Include="Components\LifeScope.cs" />
+    <Compile Include="Components\ObjectContainer.cs" />
+    <Compile Include="Configurations\Configuration.cs" />
+    <Compile Include="Data\BaseRepository.cs" />
+    <Compile Include="Data\Dapper\DapperExtensions.cs" />
+    <Compile Include="Data\IBaseRepository.cs" />
+    <Compile Include="Data\SqlDataAccess.cs" />
+    <Compile Include="Extension\AttributeExtension.cs" />
+    <Compile Include="Extension\ConcurrentDictionaryExtention.cs" />
+    <Compile Include="Extension\ObjectConvertExtension.cs" />
+    <Compile Include="Extension\ObjectExtension.cs" />
+    <Compile Include="Extension\SerializerExtension.cs" />
+    <Compile Include="Extension\StringExtension.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\ILoggerFactory.cs" />
+    <Compile Include="Logging\NLog\NLogger.cs" />
+    <Compile Include="Logging\NLog\NLoggerFactory.cs" />
+    <Compile Include="Mail\EmailSenderBase.cs" />
+    <Compile Include="Mail\EmailSenderConfiguration.cs" />
+    <Compile Include="Mail\EmailSenderSetting.cs" />
+    <Compile Include="Mail\IEmailSender.cs" />
+    <Compile Include="Mail\IEmailSenderConfiguration.cs" />
+    <Compile Include="Mail\MailInfo.cs" />
+    <Compile Include="Mail\SendCloud\ISendCloudEmailSenderConfiguration.cs" />
+    <Compile Include="Mail\SendCloud\SendCloudEmailSender.cs" />
+    <Compile Include="Mail\SendCloud\SendCloudEmailSenderConfiguration.cs" />
+    <Compile Include="Mail\Smtp\ISmtpEmailSender.cs" />
+    <Compile Include="Mail\Smtp\ISmtpEmailSenderConfiguration.cs" />
+    <Compile Include="Mail\Smtp\SmtpEmailSender.cs" />
+    <Compile Include="Mail\Smtp\SmtpEmailSenderConfiguration.cs" />
+    <Compile Include="MongoDB\MongoDBAttribute.cs" />
+    <Compile Include="MongoDB\MongoDBEntity.cs" />
+    <Compile Include="MongoDB\MongoDBService.cs" />
+    <Compile Include="MongoDB\MongoDBUtil.cs" />
+    <Compile Include="MQ\MQAttribute.cs" />
+    <Compile Include="MQ\MQConfig.cs" />
+    <Compile Include="MQ\RabbitMQ\RabbitMQConnectionFactory.cs" />
+    <Compile Include="MQ\RabbitMQ\RabbitMQService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serializing\IJsonSerializer.cs" />
+    <Compile Include="System\SystemConstant.cs" />
+    <Compile Include="ThirdParty\Json\NewtonsoftJsonSerializer.cs" />
+    <Compile Include="Utils\ConfigUtil.cs" />
+    <Compile Include="Utils\HttpUtil.cs" />
+    <Compile Include="Utils\JsonUtil.cs" />
+    <Compile Include="Utils\LogUtil.cs" />
+    <Compile Include="Utils\TypeUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
