@@ -11,6 +11,7 @@
     <AssemblyName>CML.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,6 +56,7 @@
       <HintPath>..\packages\RabbitMQ.Client.4.1.3\lib\net451\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
@@ -73,10 +75,16 @@
     <Compile Include="Components\LifeScope.cs" />
     <Compile Include="Components\ObjectContainer.cs" />
     <Compile Include="Configurations\Configuration.cs" />
-    <Compile Include="Data\BaseRepository.cs" />
-    <Compile Include="Data\Dapper\DapperExtensions.cs" />
-    <Compile Include="Data\IBaseRepository.cs" />
-    <Compile Include="Data\SqlDataAccess.cs" />
+    <Compile Include="DataAccess\BaseRepository.cs" />
+    <Compile Include="DataAccess\Dapper\DapperExtensions.cs" />
+    <Compile Include="DataAccess\DataBaseConnection.cs" />
+    <Compile Include="DataAccess\DataBaseProperty.cs" />
+    <Compile Include="DataAccess\DataBasePropertyFactory.cs" />
+    <Compile Include="DataAccess\DataBaseType.cs" />
+    <Compile Include="DataAccess\IBaseRepository.cs" />
+    <Compile Include="DataAccess\IDataAccess.cs" />
+    <Compile Include="DataAccess\SqlDataAccess.cs" />
+    <Compile Include="DataAccess\SqlQuery.cs" />
     <Compile Include="Extension\AttributeExtension.cs" />
     <Compile Include="Extension\ConcurrentDictionaryExtention.cs" />
     <Compile Include="Extension\ObjectConvertExtension.cs" />

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CML.Infrastructure.Data.Dapper
+namespace CML.Infrastructure.DataAccess.Dapper
 {
     /// <summary>
     /// Copyright (C) 2017 cml 版权所有。

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CML.Infrastructure.Data
+namespace CML.Infrastructure.DataAccess
 {
     /// <summary>
     /// Copyright (C) 2017 cml 版权所有。

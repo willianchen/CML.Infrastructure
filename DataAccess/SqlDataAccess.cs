@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CML.Infrastructure.Data
+namespace CML.Infrastructure.DataAccess
 {
     /// <summary>
     /// Copyright (C) 2017 cml 版权所有。
@@ -55,7 +55,7 @@ namespace CML.Infrastructure.Data
             , int? commandTimeout = null)
         {
             SqlDataAccess da = new SqlDataAccess(connectString);
-
+                
             return null;
         }
     }
