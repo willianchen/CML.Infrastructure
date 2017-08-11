@@ -26,7 +26,8 @@ namespace CML.Infrastructure.Extension
             if (o != null && !string.IsNullOrWhiteSpace(o.ToString()))
             {
                 string s = o.ToString().ToLower();
-                if (int.TryParse(s, out int num))
+                int num;
+                if (int.TryParse(s, out  num))
                 {
                     return num;
                 }
@@ -45,7 +46,8 @@ namespace CML.Infrastructure.Extension
             if (o != null && !string.IsNullOrWhiteSpace(o.ToString()))
             {
                 string s = o.ToString().ToLower();
-                if (decimal.TryParse(s, out decimal num))
+                decimal num;
+                if (decimal.TryParse(s, out  num))
                 {
                     return num;
                 }
@@ -71,7 +73,8 @@ namespace CML.Infrastructure.Extension
                     case "0":
                         return false;
                 }
-                if (bool.TryParse(s, out bool num))
+                bool num;
+                if (bool.TryParse(s, out  num))
                 {
                     return num;
                 }

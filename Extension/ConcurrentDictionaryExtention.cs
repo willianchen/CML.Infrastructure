@@ -18,7 +18,8 @@ namespace CML.Infrastructure.Extension
     {
         public static TValue GetValue<TKey, TValue>(this ConcurrentDictionary<TKey,TValue> o, TKey key, Func<TValue> handel)
         {
-            if (o.TryGetValue(key, out TValue value)) return value;
+            TValue value;
+            if (o.TryGetValue(key, out  value)) return value;
             TValue tValue = handel();
             o[key] = tValue;
             return tValue;
