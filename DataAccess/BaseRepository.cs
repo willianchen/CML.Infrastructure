@@ -1,4 +1,5 @@
-﻿using CML.Infrastructure.DataAccess.Dapper;
+﻿using CML.Infrastructure.DataAccess;
+using CML.Infrastructure.DataAccess.Dapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,21 +18,54 @@ namespace CML.Infrastructure.DataAccess
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         private string _tableName;
-        private string _connectString;
+        private readonly string _configName;
+        private DataBaseProperty _dbProperty;//数据库连接配置
 
         protected string TableName { get { return _tableName; } }
-        protected string ConnectString { get { return _connectString; } }
 
-        public BaseRepository(string tableName, string connectString)
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="configName"></param>
+        public BaseRepository(string tableName, string configName)
         {
             _tableName = tableName;
-            _connectString = connectString;
+            _configName = configName;
         }
 
-        public long Insert(T info)
+        /// <summary>
+        /// 获取数据操作
+        /// </summary>
+        /// <param name="isWrite">是否需要执行写操作</param>
+        /// <returns>数据操作</returns>
+        protected IDataAccess GetDataAccess(bool isWriter = false)
         {
-            SqlDataAccess da = new SqlDataAccess(ConnectString);
-            return da.Connection.Insert(info, TableName);
+            var dbProperty = DataBasePropertyFactory.GetDataBaseProperty(_configName);
+            return new SqlDataAccess(dbProperty, isWriter);
+        }
+
+        /// <summary>
+        /// 执行添加方法
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="isIdentity"></param>
+        /// <returns></returns>
+        public object Insert(T info, string[] ignoreFields = null, bool isIdentity = false)
+        {
+
+            SqlQuery query = SqlQueryUtil.BuildInsert(info, _tableName, ignoreFields: ignoreFields);
+            if (isIdentity)
+            {
+                return GetDataAccess().ExecuteScalar<object>(query);
+            }
+            else
+            {
+                return GetDataAccess().ExecuteNonQuery(query);
+            }
+
+            //SqlDataAccess da = new SqlDataAccess(ConnectString);
+            //return da.Connection.Insert(info, TableName);
         }
     }
 }

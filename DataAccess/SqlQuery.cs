@@ -16,10 +16,10 @@ namespace CML.Infrastructure.DataAccess
     /// </summary>
     public sealed class SqlQuery
     {
-        protected string _commandText;
-        protected int _commandTimeout = 30000;
-        protected CommandType _commandType = CommandType.Text;
-        protected DynamicParameters _parameters;
+        private string _commandText;
+        private int _commandTimeout = 30000;
+        private CommandType _commandType = CommandType.Text;
+        private DynamicParameters _parameters;
 
 
         public SqlQuery()
@@ -28,6 +28,10 @@ namespace CML.Infrastructure.DataAccess
         public SqlQuery(string sql, object param)
         {
             _commandText = sql;
+            if (_parameters == null)
+            {
+                _parameters = new DynamicParameters();
+            }
             _parameters.AddDynamicParams(param);
         }
 

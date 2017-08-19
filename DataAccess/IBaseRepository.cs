@@ -15,6 +15,6 @@ namespace CML.Infrastructure.DataAccess
     /// </summary>
    public interface IBaseRepository<T> where T:class
     {
-        long Insert(T info);
+        object Insert(T info, string[] ignoreFields = null, bool isIdentity = false);
     }
 }

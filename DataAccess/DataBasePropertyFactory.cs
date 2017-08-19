@@ -30,7 +30,7 @@ namespace CML.Infrastructure.DataAccess
             {
                 throw new Exception("数据库连接字符串【" + connStrName + "】没有配置！");
             }
-            DataBaseConnection dbConnection = default(DataBaseConnection);
+            DataBaseConnection dbConnection = new DataBaseConnection();
             dbConnection.ConnectionString = connStrSetting.ConnectionString;
             dbConnection.DatabaseType = GetDbType(connStrSetting.ProviderName);
             return dbConnection;

@@ -15,7 +15,7 @@ namespace CML.Infrastructure.DataAccess
     /// </summary>
     public static class SqlQueryUtil
     {
-        public static SqlQuery BuildInserty<T>(T entity, string tableName, string keyName = null, string[] ignoreFields = null, bool isIdentity = true, DataBaseType dbType = DataBaseType.MSSqlServer) where T : new()
+        public static SqlQuery BuildInsert<T>(T entity, string tableName, string keyName = null, string[] ignoreFields = null, bool isIdentity = true, DataBaseType dbType = DataBaseType.MSSqlServer) where T : class
         {
             var propertyList = PropertyUtil.GetPropertyInfos(entity, ignoreFields);
             var proNameList = propertyList.Select(m => m.Name);
