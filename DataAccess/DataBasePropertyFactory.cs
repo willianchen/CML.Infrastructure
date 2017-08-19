@@ -36,6 +36,17 @@ namespace CML.Infrastructure.DataAccess
             return dbConnection;
         }
 
+        public static DataBaseConnection GetDefautDbConnectionByConnectString(string connectionString)
+        {
+            if ( string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new Exception("数据库连接字符串没有配置！");
+            }
+            DataBaseConnection dbConnection = default(DataBaseConnection);
+            dbConnection.ConnectionString = connectionString;
+            dbConnection.DatabaseType = DataBaseType.MSSqlServer;
+            return dbConnection;
+        }
         /// <summary>
         /// 获取数据库连接类型
         /// </summary>

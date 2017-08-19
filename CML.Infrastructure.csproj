@@ -81,10 +81,12 @@
     <Compile Include="DataAccess\DataBaseProperty.cs" />
     <Compile Include="DataAccess\DataBasePropertyFactory.cs" />
     <Compile Include="DataAccess\DataBaseType.cs" />
+    <Compile Include="DataAccess\Extensions\DynamicParametersExtension.cs" />
     <Compile Include="DataAccess\IBaseRepository.cs" />
     <Compile Include="DataAccess\IDataAccess.cs" />
     <Compile Include="DataAccess\SqlDataAccess.cs" />
     <Compile Include="DataAccess\SqlQuery.cs" />
+    <Compile Include="DataAccess\SqlQueryUtil.cs" />
     <Compile Include="Extension\AttributeExtension.cs" />
     <Compile Include="Extension\ConcurrentDictionaryExtention.cs" />
     <Compile Include="Extension\ObjectConvertExtension.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Utils\HttpUtil.cs" />
     <Compile Include="Utils\JsonUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />
+    <Compile Include="Utils\PropertyUtil.cs" />
     <Compile Include="Utils\TypeUtil.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,61 @@ namespace CML.Infrastructure.DataAccess
     /// </summary>
     public sealed class SqlQuery
     {
+        protected string _commandText;
+        protected int _commandTimeout = 30000;
+        protected CommandType _commandType = CommandType.Text;
+        protected DynamicParameters _parameters;
 
+
+        public SqlQuery()
+        { }
+
+        public SqlQuery(string sql, object param)
+        {
+            _commandText = sql;
+            _parameters.AddDynamicParams(param);
+        }
+
+
+        public string CommandText
+        {
+            get
+            {
+                return _commandText;
+            }
+            set
+            {
+                this._commandText = value;
+            }
+        }
+
+        public int CommandTimeout
+        {
+            get
+            {
+                return this._commandTimeout;
+            }
+            set
+            {
+                if (value < 10)
+                {
+                    this._commandTimeout = 300;
+                    return;
+                }
+                this._commandTimeout = value;
+            }
+        }
+
+        public CommandType CommandType
+        {
+            get { return _commandType; }
+            set { _commandType = value; }
+        }
+
+        public DynamicParameters Parameters
+        {
+            get { return _parameters; }
+            set { _parameters = value; }
+        }
     }
 }
