@@ -28,13 +28,18 @@ namespace CML.Infrastructure.DataAccess
         public SqlQuery(string sql, object param)
         {
             _commandText = sql;
+            AddParameter(param);
+        }
+
+
+        public void AddParameter(object param)
+        {
             if (_parameters == null)
             {
                 _parameters = new DynamicParameters();
             }
             _parameters.AddDynamicParams(param);
         }
-
 
         public string CommandText
         {

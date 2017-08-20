@@ -119,6 +119,8 @@
     <Compile Include="MQ\RabbitMQ\RabbitMQConnectionFactory.cs" />
     <Compile Include="MQ\RabbitMQ\RabbitMQService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Result\Page\IPageResult.cs" />
+    <Compile Include="Result\Page\PageResult.cs" />
     <Compile Include="Serializing\IJsonSerializer.cs" />
     <Compile Include="System\SystemConstant.cs" />
     <Compile Include="ThirdParty\Json\NewtonsoftJsonSerializer.cs" />

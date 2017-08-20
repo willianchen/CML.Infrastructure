@@ -1,10 +1,6 @@
-﻿using CML.Infrastructure.DataAccess;
-using CML.Infrastructure.DataAccess.Dapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CML.Infrastructure.Result;
 
 namespace CML.Infrastructure.DataAccess
 {
@@ -13,13 +9,12 @@ namespace CML.Infrastructure.DataAccess
     /// 类名：BaseRepositorycs.cs
     /// 类属性：公共类（非静态）
     /// 类功能描述：BaseRepositorycs
-    /// 创建标识：cml 2017/7/6 15:34:50
+    /// 创建标识：cml 2017/7/6 15:34:50  
     /// </summary>
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         private string _tableName;
         private readonly string _configName;
-        private DataBaseProperty _dbProperty;//数据库连接配置
 
         protected string TableName { get { return _tableName; } }
 
@@ -53,7 +48,6 @@ namespace CML.Infrastructure.DataAccess
         /// <returns></returns>
         public object Insert(T info, string[] ignoreFields = null, bool isIdentity = false)
         {
-
             SqlQuery query = SqlQueryUtil.BuildInsert(info, _tableName, ignoreFields: ignoreFields);
             if (isIdentity)
             {
@@ -63,9 +57,63 @@ namespace CML.Infrastructure.DataAccess
             {
                 return GetDataAccess().ExecuteNonQuery(query);
             }
+        }
 
-            //SqlDataAccess da = new SqlDataAccess(ConnectString);
-            //return da.Connection.Insert(info, TableName);
+
+        /// <summary>
+        /// 删除记录
+        /// </summary>
+        /// <param name="condition">条件</param>
+        /// <returns></returns>
+        public int Delete(object condition)
+        {
+            SqlQuery query = SqlQueryUtil.BuildDelete(condition, _tableName);
+            return GetDataAccess().ExecuteNonQuery(query);
+        }
+
+        public TDto GetDto<TDto>(object condition, string[] ignoreFields = null, bool isWrite = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T GetInfo(object condition, string[] ignoreFields = null, bool isWrite = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int QueryCount(object condition, bool isWrite = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<T> QueryList(bool isWrite = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<T> QueryList(object condition, bool isWrite = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<TDto> QueryList<TDto>(string[] ignoreFields = null, bool isWrite = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<TDto> QueryList<TDto>(object condition, string[] ignoreFields = null, bool isWrite = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPageResult<TModel> QueryPageList<TModel>(string selectColumn, string selectTable, string where, string order,int pageIndex,int pageSize, object cmdParms = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Update(object data, object condition, string[] ignoreFields = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }
