@@ -59,6 +59,18 @@ namespace CML.Infrastructure.DataAccess
             }
         }
 
+        /// <summary>
+        /// 更新记录
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="condition"></param>
+        /// <param name="ignoreFields"></param>
+        /// <returns></returns>
+        public int Update(object data, object condition, string[] ignoreFields = null)
+        {
+            SqlQuery query = SqlQueryUtil.BuildUpdate(data, condition, _tableName, ignoreFields);
+            return GetDataAccess(true).ExecuteNonQuery(query);
+        }
 
         /// <summary>
         /// 删除记录
@@ -71,47 +83,108 @@ namespace CML.Infrastructure.DataAccess
             return GetDataAccess().ExecuteNonQuery(query);
         }
 
+        /// <summary>
+        /// 根据条件获取Dto
+        /// </summary>
+        /// <typeparam name="TDto"></typeparam>
+        /// <param name="condition"></param>
+        /// <param name="ignoreFields"></param>
+        /// <param name="isWrite"></param>
+        /// <returns></returns>
         public TDto GetDto<TDto>(object condition, string[] ignoreFields = null, bool isWrite = false)
         {
-            throw new NotImplementedException();
+            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery<TDto>(condition, _tableName);
+            return GetDataAccess(isWrite).QuerySingleOrDefault<TDto>(query);
         }
 
+        /// <summary>
+        /// 获取Info
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="ignoreFields"></param>
+        /// <param name="isWrite"></param>
+        /// <returns></returns>
         public T GetInfo(object condition, string[] ignoreFields = null, bool isWrite = false)
         {
-            throw new NotImplementedException();
+            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery(condition, _tableName, ignoreFields);
+            return GetDataAccess().QuerySingleOrDefault<T>(query);
         }
 
+        /// <summary>
+        /// 查询数量结果
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="isWrite"></param>
+        /// <returns></returns>
         public int QueryCount(object condition, bool isWrite = false)
         {
-            throw new NotImplementedException();
+            SqlQuery query = SqlQueryUtil.BuilderQueryCountSqlQuery(condition, _tableName);
+            return GetDataAccess(isWrite).ExecuteScalar<int>(query);
         }
 
+        /// <summary>
+        /// 获取查询列表
+        /// </summary>
+        /// <param name="isWrite"></param>
+        /// <returns></returns>
         public IEnumerable<T> QueryList(bool isWrite = false)
         {
-            throw new NotImplementedException();
+            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery<T>(null, _tableName);
+            return GetDataAccess(isWrite).Query<T>(query);
         }
 
+        /// <summary>
+        /// 查询列表
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="isWrite"></param>
+        /// <returns></returns>
         public IEnumerable<T> QueryList(object condition, bool isWrite = false)
         {
-            throw new NotImplementedException();
+            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery<T>(condition, _tableName);
+            return GetDataAccess(isWrite).Query<T>(query);
         }
 
+        /// <summary>
+        /// 查询列表
+        /// </summary>
+        /// <typeparam name="TDto"></typeparam>
+        /// <param name="ignoreFields"></param>
+        /// <param name="isWrite"></param>
+        /// <returns></returns>
         public IEnumerable<TDto> QueryList<TDto>(string[] ignoreFields = null, bool isWrite = false)
         {
-            throw new NotImplementedException();
+            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery<TDto>(null, _tableName,ignoreFields);
+            return GetDataAccess(isWrite).Query<TDto>(query);
         }
 
+        /// <summary>
+        /// 查询列表
+        /// </summary>
+        /// <typeparam name="TDto"></typeparam>
+        /// <param name="condition"></param>
+        /// <param name="ignoreFields"></param>
+        /// <param name="isWrite"></param>
+        /// <returns></returns>
         public IEnumerable<TDto> QueryList<TDto>(object condition, string[] ignoreFields = null, bool isWrite = false)
         {
-            throw new NotImplementedException();
+            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery<TDto>(condition, _tableName, ignoreFields);
+            return GetDataAccess(isWrite).Query<TDto>(query);
         }
 
-        public IPageResult<TModel> QueryPageList<TModel>(string selectColumn, string selectTable, string where, string order,int pageIndex,int pageSize, object cmdParms = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Update(object data, object condition, string[] ignoreFields = null)
+        /// <summary>
+        /// 查询分页列表
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="selectColumn"></param>
+        /// <param name="selectTable"></param>
+        /// <param name="where"></param>
+        /// <param name="order"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="cmdParms"></param>
+        /// <returns></returns>
+        public IPageResult<TModel> QueryPageList<TModel>(string selectColumn, string selectTable, string where, string order, int pageIndex, int pageSize, object cmdParms = null)
         {
             throw new NotImplementedException();
         }

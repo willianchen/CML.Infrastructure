@@ -84,6 +84,7 @@
     <Compile Include="DataAccess\Extensions\DynamicParametersExtension.cs" />
     <Compile Include="DataAccess\IBaseRepository.cs" />
     <Compile Include="DataAccess\IDataAccess.cs" />
+    <Compile Include="DataAccess\ParameterInfo.cs" />
     <Compile Include="DataAccess\SqlDataAccess.cs" />
     <Compile Include="DataAccess\SqlQuery.cs" />
     <Compile Include="DataAccess\SqlQueryUtil.cs" />

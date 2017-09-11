@@ -1,6 +1,8 @@
-﻿using CML.Infrastructure.Utils;
+﻿using CML.Infrastructure.Extension;
+using CML.Infrastructure.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,7 +67,7 @@ namespace CML.Infrastructure.DataAccess
         /// <returns></returns>
         public static SqlQuery BuildUpdate(object data, object condition, string tableName, string[] ignoreFields = null, DataBaseType dbType = DataBaseType.MSSqlServer)
         {
-            var propertyUpdateInfos = PropertyUtil.GetPropertyInfos(data);
+            var propertyUpdateInfos = PropertyUtil.GetPropertyInfos(data, ignoreFields);
             var propertyWhereInfos = PropertyUtil.GetPropertyInfos(condition);
 
             var updateProperties = propertyUpdateInfos.Select(p => p.Name);
@@ -75,7 +77,7 @@ namespace CML.Infrastructure.DataAccess
             string whereSql = string.Empty;
             if (whereProperties.Any())
             {
-                whereSql = string.Format("Where {0}", string.Join(",", whereProperties.Select(p => p = GetSign(dbType) + p)));
+                whereSql = string.Format("Where {0}", string.Join(" and ", whereProperties.Select(p => p = GetSign(dbType) + p)));
             }
             string updateSql = string.Format("Update {0}  Set {1} {3}", tableName, updateFields, whereSql);
             SqlQuery sqlQuery = new SqlQuery();
@@ -86,7 +88,148 @@ namespace CML.Infrastructure.DataAccess
             return sqlQuery;
         }
 
+        /// <summary>
+        /// 创建查询SQL
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="tableName"></param>
+        /// <param name="orderBy"></param>
+        /// <param name="dbType"></param>
+        /// <returns></returns>
+        public static SqlQuery BuilderQuerySqlQuery(object condition, string tableName, string[] ignoreFields = null, string orderBy = "", DataBaseType dbType = DataBaseType.MSSqlServer)
+        {
+            SqlQuery query = new SqlQuery();
 
+            var propertyWhereInfos = PropertyUtil.GetPropertyInfos(condition);
+            var whereProperties = propertyWhereInfos.Select(p => p.Name);
+
+            string whereSql = string.Empty;
+            if (whereProperties.Any())
+            {
+                whereSql = string.Format("Where {0}", string.Join(" And ", whereProperties.Select(p => p = GetSign(dbType) + p)));
+            }
+            string orderBySql = string.Empty;
+            if (orderBy != "")
+                orderBySql = " order by " + orderBy;
+            string updateSql = string.Format("Select * from  {0}  {1} {2}", tableName, whereSql, orderBySql);
+            SqlQuery sqlQuery = new SqlQuery();
+            sqlQuery.CommandText = updateSql;
+            sqlQuery.AddParameter(condition);
+            return new SqlQuery();
+        }
+
+        /// <summary>
+        /// 创建查询sql 
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="condition"></param>
+        /// <param name="tableName"></param>
+        /// <param name="ignoreFields"></param>
+        /// <param name="orderBy"></param>
+        /// <param name="dbType"></param>
+        /// <returns></returns>
+        public static SqlQuery BuilderQuerySqlQuery<TModel>(object condition, string tableName, string[] ignoreFields = null, string orderBy = "", DataBaseType dbType = DataBaseType.MSSqlServer)
+        {
+            SqlQuery query = new SqlQuery();
+
+            var propertyInfos = PropertyUtil.GetPropertyByType(typeof(TModel), ignoreFields);
+            var columns = string.Join(",", propertyInfos.Select(m => m.Name));
+
+            var propertyWhereInfos = PropertyUtil.GetPropertyInfos(condition);
+            var whereProperties = propertyWhereInfos.Select(p => p.Name);
+
+            string whereSql = string.Empty;
+            if (whereProperties.Any())
+            {
+                whereSql = string.Format("Where {0}", string.Join(" And ", whereProperties.Select(p => p = GetSign(dbType) + p)));
+            }
+            string orderBySql = string.Empty;
+            if (orderBy != "")
+                orderBySql = " order by " + orderBy;
+            string updateSql = string.Format("Select {3} from  {0}  {1} {2}", tableName, whereSql, orderBySql, columns);
+            SqlQuery sqlQuery = new SqlQuery();
+            sqlQuery.CommandText = updateSql;
+            sqlQuery.AddParameter(condition);
+            return new SqlQuery();
+        }
+
+        /// <summary>
+        /// 构建取总数sql
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="tableName"></param>
+        /// <param name="dbType"></param>
+        /// <returns></returns>
+        public static SqlQuery BuilderQueryCountSqlQuery(object condition, string tableName, DataBaseType dbType = DataBaseType.MSSqlServer)
+        {
+            var whereFields = string.Empty;
+            var whereProperties = PropertyUtil.GetPropertyInfos(condition);
+            var whereFieldNames = whereProperties.Select(p => p.Name);
+            if (whereFieldNames.Any())
+            {
+                whereFields = " WHERE " + string.Join(" AND ", whereFieldNames.Select(p => p + " = " + GetSign(dbType) + p));
+            }
+            var sql = string.Format("SELECT COUNT(0) FROM {0}{1};", tableName, whereFields);
+            return new SqlQuery(sql, condition);
+        }
+
+        /// <summary>
+        /// 构建分页SQLquery
+        /// </summary>
+        /// <param name="selectColumn"></param>
+        /// <param name="selectTable"></param>
+        /// <param name="where"></param>
+        /// <param name="order"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="dbType"></param>
+        /// <param name="cmdparams"></param>
+        /// <returns></returns>
+        public static SqlQuery BuilderPageSqlQuery(string selectColumn, string selectTable, string where, string order, int pageIndex, int pageSize, DataBaseType dbType = DataBaseType.MSSqlServer, object cmdParams = null)
+        {
+            SqlQuery query = new SqlQuery();
+            string sql = string.Empty;//select语句
+            if (pageIndex == 1)
+            {
+                switch (dbType)
+                {
+                    case DataBaseType.PostgreSql:
+                        sql = string.Format(@"SELECT {0} FROM {1} {2} ORDER BY {3} limit @NUM", string.IsNullOrWhiteSpace(selectColumn) ? "*" : selectColumn, selectTable, string.IsNullOrWhiteSpace(where) ? string.Empty : string.Format(" WHERE {0} ", where), order);
+                        break;
+
+                    default:
+                        sql = string.Format(@"SELECT TOP(@NUM) {0} FROM {1} {2} ORDER BY {3}", string.IsNullOrWhiteSpace(selectColumn) ? "*" : selectColumn, selectTable, string.IsNullOrWhiteSpace(where) ? string.Empty : string.Format(" WHERE {0} ", where), order);
+                        break;
+                }
+                List<ParameterInfo> listParms = new List<ParameterInfo>();
+                listParms.Add(new ParameterInfo { ParameterName = "@NUM", Value = pageSize, DbType = DbType.Int32 });
+                query.AddParameter(listParms);
+            }
+            else
+            {
+                switch (dbType)
+                {
+                    case DataBaseType.PostgreSql:
+                        sql = string.Format(@"SELECT * FROM ( SELECT {0},row_number() over(ORDER BY {3}) as [num] FROM {1} {2} ) as [tab] WHERE NUM BETWEEN @NumStart and @NumEnd", string.IsNullOrWhiteSpace(selectColumn) ? "*" : selectColumn, selectTable, string.IsNullOrWhiteSpace(where) ? string.Empty : string.Format(" WHERE {0} ", where), order);
+                        break;
+
+                    default:
+                        sql = string.Format(@"SELECT * FROM ( SELECT {0},row_number() over(ORDER BY {3}) as [num] FROM {1} {2} ) as [tab] WHERE NUM BETWEEN @NumStart and @NumEnd", string.IsNullOrWhiteSpace(selectColumn) ? "*" : selectColumn, selectTable, string.IsNullOrWhiteSpace(where) ? string.Empty : string.Format(" WHERE {0} ", where), order);
+                        break;
+                }
+                List<ParameterInfo> listParms = new List<ParameterInfo>();
+                listParms.Add(new ParameterInfo { ParameterName = "@NumStart", Value = ((pageIndex - 1) * pageSize + 1), DbType = DbType.Int32 });
+                listParms.Add(new ParameterInfo { ParameterName = "@NumEnd", Value = (pageIndex * pageSize).ToString(), DbType = DbType.Int32 });
+                query.AddParameter(listParms);
+            }
+            if (cmdParams != null)
+            {
+                query.AddParameter(cmdParams);
+            }
+            query.CommandText = sql;
+            query.CommandType = CommandType.Text;
+            return query;
+        }
         #region 通用方法
         private static string GetIdentityKeyScript(string keyName, DataBaseType dbType)
         {

@@ -81,7 +81,7 @@ namespace CML.Infrastructure.DataAccess
                 return _connection;
             }
         }
-        
+
         /// <summary>
         /// 是否关闭连接
         /// </summary>
@@ -170,9 +170,14 @@ namespace CML.Infrastructure.DataAccess
             return _connection.Execute(query.CommandText, query.Parameters, _tran, query.CommandTimeout, query.CommandType);
         }
 
+        /// <summary>
+        /// 异步执行sql
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public Task<int> ExecuteNonQueryAsync(SqlQuery query)
         {
-            throw new NotImplementedException();
+            return _connection.ExecuteAsync(query.CommandText, query.Parameters, _tran, query.CommandTimeout, query.CommandType);
         }
 
         /// <summary>
@@ -180,18 +185,35 @@ namespace CML.Infrastructure.DataAccess
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="query"></param>
-        /// <returns>返回首行首列</returns>
+        /// <returns></returns>
         public T ExecuteScalar<T>(SqlQuery query)
         {
             return _connection.ExecuteScalar<T>(query.CommandText, query.Parameters, Tran, query.CommandTimeout, query.CommandType);
         }
 
+        /// <summary>
+        /// 异步执行sql
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public Task<T> ExecuteScalarAsync<T>(SqlQuery query)
         {
-            throw new NotImplementedException();
+            return _connection.ExecuteScalarAsync<T>(query.CommandText, query.Parameters, Tran, query.CommandTimeout, query.CommandType);
         }
 
+        /// <summary>
+        /// 查询列表
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public IEnumerable<T> Query<T>(SqlQuery query)
+        {
+            return _connection.Query<T>(query.CommandText, query.Parameters, Tran, false, query.CommandTimeout, query.CommandType);
+        }
+
+        public T QuerySingleOrDefault<T>(SqlQuery query)
         {
             throw new NotImplementedException();
         }

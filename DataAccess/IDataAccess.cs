@@ -95,5 +95,13 @@ namespace CML.Infrastructure.DataAccess
         /// <param name="query">查询请求内容</param>
         /// <returns>结果集</returns>
         IEnumerable<T> Query<T>(SqlQuery query);
+
+        /// <summary>
+        /// 返回第一条结果信息
+        /// </summary>
+        /// <typeparam name="T">返回结果类型</typeparam>
+        /// <param name="query">查询请求内容</param>
+        /// <returns>第一条结果信息</returns>
+        T QuerySingleOrDefault<T>(SqlQuery query);
     }
 }

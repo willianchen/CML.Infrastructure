@@ -41,6 +41,19 @@ namespace CML.Infrastructure.Utils
             return GetPropertyByType(obj.GetType());
         }
 
+
+        public static List<PropertyInfo> GetPropertyByType(Type type, string[] ignoreProperties)
+        {
+            var properties = GetPropertyByType(type).Where(s =>
+            {
+                if (ignoreProperties == null) return true;
+                if (ignoreProperties.Contains(s.Name)) return false;
+                return true;
+            }).ToList();
+            return properties;
+        }
+
+
         public static List<PropertyInfo> GetPropertyByType(Type type)
         {
             if (type == null)
@@ -54,5 +67,7 @@ namespace CML.Infrastructure.Utils
             }
             return value;
         }
+
+
     }
 }
