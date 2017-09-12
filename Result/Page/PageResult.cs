@@ -11,7 +11,7 @@ namespace CML.Infrastructure.Result
     /// 类功能描述：PageResult
     /// 创建标识：cml 2017/8/20 11:53:56
     /// </summary>
-    public class PageResult<T> : IPageResult<T> where T : class
+    public class PageResult<T> : IPageResult<T> 
     {
         private int _pageCount;
         private int _pageIndex;

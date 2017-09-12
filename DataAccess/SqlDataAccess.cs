@@ -215,7 +215,7 @@ namespace CML.Infrastructure.DataAccess
 
         public T QuerySingleOrDefault<T>(SqlQuery query)
         {
-            throw new NotImplementedException();
+            return _connection.QueryFirstOrDefault<T>(query.CommandText, query.Parameters, Tran, query.CommandTimeout, query.CommandType);
         }
     }
 }

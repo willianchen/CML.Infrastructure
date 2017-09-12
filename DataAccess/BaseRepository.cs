@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CML.Infrastructure.Result;
+using System.Text;
 
 namespace CML.Infrastructure.DataAccess
 {
@@ -122,6 +123,15 @@ namespace CML.Infrastructure.DataAccess
             return GetDataAccess(isWrite).ExecuteScalar<int>(query);
         }
 
+        protected int QueryCount(string selectTable, string where, object cmdParms = null, bool isWrite = false)
+        {
+            StringBuilder selectSQL = new StringBuilder();
+            selectSQL.Append(string.Format("SELECT COUNT(0) FROM {0} ", selectTable));
+            if (!string.IsNullOrWhiteSpace(where)) selectSQL.Append(string.Format(" WHERE {0}", where));
+            SqlQuery query = new SqlQuery(selectSQL.ToString(), cmdParms);
+            return GetDataAccess(isWriter: isWrite).ExecuteScalar<int>(query);
+        }
+
         /// <summary>
         /// 获取查询列表
         /// </summary>
@@ -154,7 +164,7 @@ namespace CML.Infrastructure.DataAccess
         /// <returns></returns>
         public IEnumerable<TDto> QueryList<TDto>(string[] ignoreFields = null, bool isWrite = false)
         {
-            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery<TDto>(null, _tableName,ignoreFields);
+            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery<TDto>(null, _tableName, ignoreFields);
             return GetDataAccess(isWrite).Query<TDto>(query);
         }
 
@@ -186,7 +196,29 @@ namespace CML.Infrastructure.DataAccess
         /// <returns></returns>
         public IPageResult<TModel> QueryPageList<TModel>(string selectColumn, string selectTable, string where, string order, int pageIndex, int pageSize, object cmdParms = null)
         {
-            throw new NotImplementedException();
+            int totalCount = QueryCount(selectTable, where, cmdParms: cmdParms);
+            var dataList = PageQuery<TModel>(selectColumn, selectTable, where, order, pageIndex, pageSize, cmdParms: cmdParms);
+            return new PageResult<TModel>(pageIndex, pageSize, totalCount, dataList);
         }
+
+        /// <summary>
+        /// 获取分页查询
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="selectColumn"></param>
+        /// <param name="selectTable"></param>
+        /// <param name="where"></param>
+        /// <param name="order"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="cmdParms"></param>
+        /// <returns></returns>
+        public IEnumerable<TModel> PageQuery<TModel>(string selectColumn, string selectTable, string where, string order, int pageIndex, int pageSize, object cmdParms = null)
+        {
+            SqlQuery query = SqlQueryUtil.BuilderPageSqlQuery(selectColumn, selectTable, where, order, pageIndex, pageSize, cmdParams: cmdParms);
+            return GetDataAccess().Query<TModel>(query);
+        }
+
+     
     }
 }

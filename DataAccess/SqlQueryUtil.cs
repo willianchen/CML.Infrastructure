@@ -28,7 +28,7 @@ namespace CML.Infrastructure.DataAccess
         /// <param name="isIdentity"></param>
         /// <param name="dbType"></param>
         /// <returns></returns>
-        public static SqlQuery BuildInsert<T>(T entity, string tableName, string keyName = null, string[] ignoreFields = null, bool isIdentity = true, DataBaseType dbType = DataBaseType.MSSqlServer) where T : class
+        public static SqlQuery BuildInsert<T>(T entity, string tableName, string keyName = null, string[] ignoreFields = null, bool isIdentity = true, DataBaseType dbType = DataBaseType.MSSqlServer) 
         {
             var propertyList = PropertyUtil.GetPropertyInfos(entity, ignoreFields);
             var proNameList = propertyList.Select(m => m.Name);
@@ -51,7 +51,7 @@ namespace CML.Infrastructure.DataAccess
             var propertyName = propertyList.Select(p => p.Name);
             string whereSql = string.Empty;
             if (propertyName.Any())
-                whereSql = string.Format(" Where {0}", string.Join("And", propertyList.Select(p => p + "=" + GetSign(dbType) + p)));
+                whereSql = string.Format(" Where {0}", string.Join("And", propertyName.Select(p => p + "=" + GetSign(dbType) + p)));
             string deleteSql = string.Format("delete from {0} {1}", tableName, whereSql);
             return new SqlQuery(deleteSql, condition);
         }
@@ -73,13 +73,13 @@ namespace CML.Infrastructure.DataAccess
             var updateProperties = propertyUpdateInfos.Select(p => p.Name);
             var whereProperties = propertyWhereInfos.Select(p => p.Name);
 
-            var updateFields = string.Join(",", updateProperties.Select(p => p = GetSign(dbType) + p));
+            var updateFields = string.Join(",", updateProperties.Select(p => p + "=" + GetSign(dbType) + p));
             string whereSql = string.Empty;
             if (whereProperties.Any())
             {
-                whereSql = string.Format("Where {0}", string.Join(" and ", whereProperties.Select(p => p = GetSign(dbType) + p)));
+                whereSql = string.Format("Where {0}", string.Join(" and ", whereProperties.Select(p => p + "=" + GetSign(dbType) + p)));
             }
-            string updateSql = string.Format("Update {0}  Set {1} {3}", tableName, updateFields, whereSql);
+            string updateSql = string.Format("Update {0}  Set {1} {2}", tableName, updateFields, whereSql);
             SqlQuery sqlQuery = new SqlQuery();
             sqlQuery.CommandText = updateSql;
             sqlQuery.AddParameter(data);
@@ -106,7 +106,7 @@ namespace CML.Infrastructure.DataAccess
             string whereSql = string.Empty;
             if (whereProperties.Any())
             {
-                whereSql = string.Format("Where {0}", string.Join(" And ", whereProperties.Select(p => p = GetSign(dbType) + p)));
+                whereSql = string.Format("Where {0}", string.Join(" And ", whereProperties.Select(p => p + "=" + (GetSign(dbType) + p))));
             }
             string orderBySql = string.Empty;
             if (orderBy != "")
@@ -115,7 +115,7 @@ namespace CML.Infrastructure.DataAccess
             SqlQuery sqlQuery = new SqlQuery();
             sqlQuery.CommandText = updateSql;
             sqlQuery.AddParameter(condition);
-            return new SqlQuery();
+            return sqlQuery;
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace CML.Infrastructure.DataAccess
             string whereSql = string.Empty;
             if (whereProperties.Any())
             {
-                whereSql = string.Format("Where {0}", string.Join(" And ", whereProperties.Select(p => p = GetSign(dbType) + p)));
+                whereSql = string.Format("Where {0}", string.Join(" And ", whereProperties.Select(p => p + "=" + GetSign(dbType) + p)));
             }
             string orderBySql = string.Empty;
             if (orderBy != "")
@@ -150,7 +150,7 @@ namespace CML.Infrastructure.DataAccess
             SqlQuery sqlQuery = new SqlQuery();
             sqlQuery.CommandText = updateSql;
             sqlQuery.AddParameter(condition);
-            return new SqlQuery();
+            return sqlQuery;
         }
 
         /// <summary>
