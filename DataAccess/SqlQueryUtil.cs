@@ -201,9 +201,9 @@ namespace CML.Infrastructure.DataAccess
                         sql = string.Format(@"SELECT TOP(@NUM) {0} FROM {1} {2} ORDER BY {3}", string.IsNullOrWhiteSpace(selectColumn) ? "*" : selectColumn, selectTable, string.IsNullOrWhiteSpace(where) ? string.Empty : string.Format(" WHERE {0} ", where), order);
                         break;
                 }
-                List<ParameterInfo> listParms = new List<ParameterInfo>();
-                listParms.Add(new ParameterInfo { ParameterName = "@NUM", Value = pageSize, DbType = DbType.Int32 });
-                query.AddParameter(listParms);
+
+                var param = new ParameterInfo { ParameterName = "@NUM", Value = pageSize, DbType = DbType.Int32 };
+                query.AddParameter(param);
             }
             else
             {
@@ -230,6 +230,7 @@ namespace CML.Infrastructure.DataAccess
             query.CommandType = CommandType.Text;
             return query;
         }
+
         #region 通用方法
         private static string GetIdentityKeyScript(string keyName, DataBaseType dbType)
         {
