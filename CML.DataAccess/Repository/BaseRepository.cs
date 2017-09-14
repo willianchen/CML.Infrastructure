@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CML.Infrastructure.Result;
 using System.Text;
 
-namespace CML.Infrastructure.DataAccess
+namespace CML.DataAccess
 {
     /// <summary>
     /// Copyright (C) 2017 cml 版权所有。

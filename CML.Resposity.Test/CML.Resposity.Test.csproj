@@ -63,6 +63,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CML.DataAccess\CML.DataAccess.csproj">
+      <Project>{f69be701-d791-4b78-b99f-1e3de42bf39f}</Project>
+      <Name>CML.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CML.Infrastructure\CML.Infrastructure.csproj">
       <Project>{45583FEB-DF4B-458D-9E6B-2899D164F5E0}</Project>
       <Name>CML.Infrastructure</Name>

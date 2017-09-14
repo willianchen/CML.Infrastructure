@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
-namespace CML.Infrastructure.DataAccess
+namespace CML.DataAccess
 {
     /// <summary>
     /// Copyright (C) 2017 cml 版权所有。

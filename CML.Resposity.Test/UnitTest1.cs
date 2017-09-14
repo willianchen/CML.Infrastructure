@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
 using CML.Infrastructure.Extension;
 using CML.Infrastructure.Result;
 
