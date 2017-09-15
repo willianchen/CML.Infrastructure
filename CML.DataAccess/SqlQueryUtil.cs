@@ -28,7 +28,7 @@ namespace CML.DataAccess
         /// <param name="isIdentity"></param>
         /// <param name="dbType"></param>
         /// <returns></returns>
-        public static SqlQuery BuildInsert<T>(T entity, string tableName, string keyName = null, string[] ignoreFields = null, bool isIdentity = true, DataBaseType dbType = DataBaseType.MSSqlServer) 
+        public static SqlQuery BuildInsert<T>(T entity, string tableName, string keyName = null, string[] ignoreFields = null, bool isIdentity = true, DataBaseType dbType = DataBaseType.MSSqlServer)
         {
             var propertyList = PropertyUtil.GetPropertyInfos(entity, ignoreFields);
             var proNameList = propertyList.Select(m => m.Name);
@@ -128,7 +128,7 @@ namespace CML.DataAccess
         /// <param name="orderBy"></param>
         /// <param name="dbType"></param>
         /// <returns></returns>
-        public static SqlQuery BuilderQuerySqlQuery<TModel>(object condition, string tableName, string[] ignoreFields = null, string orderBy = "", DataBaseType dbType = DataBaseType.MSSqlServer)
+        public static SqlQuery BuilderQuerySqlQuery<TModel>(object condition, string tableName, string[] ignoreFields = null, string orderBy = "", int top = 0, DataBaseType dbType = DataBaseType.MSSqlServer)
         {
             SqlQuery query = new SqlQuery();
 
@@ -143,10 +143,15 @@ namespace CML.DataAccess
             {
                 whereSql = string.Format("Where {0}", string.Join(" And ", whereProperties.Select(p => p + "=" + GetSign(dbType) + p)));
             }
+            string topStr = string.Empty;
+            if (top > 0)
+            {
+                topStr = "top " + top;
+            }
             string orderBySql = string.Empty;
             if (orderBy != "")
                 orderBySql = " order by " + orderBy;
-            string updateSql = string.Format("Select {3} from  {0}  {1} {2}", tableName, whereSql, orderBySql, columns);
+            string updateSql = string.Format("Select {4} {3} from  {0}  {1} {2}", tableName, whereSql, orderBySql, columns, topStr);
             SqlQuery sqlQuery = new SqlQuery();
             sqlQuery.CommandText = updateSql;
             sqlQuery.AddParameter(condition);

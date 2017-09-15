@@ -14,7 +14,7 @@ namespace CML.DataAccess
     /// 类功能描述：IBaseRepository
     /// 创建标识：cml 2017/7/6 15:32:21
     /// </summary>
-   public interface IBaseRepository<T> where T:class
+    public interface IBaseRepository<T> where T : class
     {
         /// <summary>
         /// 添加一条记录
@@ -73,7 +73,7 @@ namespace CML.DataAccess
         /// <param name="condition">查询条件</param>
         /// <param name="isWrite">是否为写连接(事务中使用)</param>
         /// <returns>列表</returns>
-        IEnumerable<T> QueryList(object condition, bool isWrite = false);
+        IEnumerable<T> QueryList(object condition, int top = 0, bool isWrite = false);
 
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace CML.DataAccess
         /// <param name="ignoreFields">要忽略的字段</param>
         /// <param name="isWrite">是否为写连接(事务中使用)</param>
         /// <returns>传输对象列表</returns>
-        IEnumerable<TDto> QueryList<TDto>(string[] ignoreFields = null, bool isWrite = false);
+        IEnumerable<TDto> QueryList<TDto>(string[] ignoreFields = null, string orderBy = "", int top = 0, bool isWrite = false);
 
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace CML.DataAccess
         /// <param name="ignoreFields">要忽略的字段</param>
         /// <param name="isWrite">是否为写连接(事务中使用)</param>
         /// <returns>传输对象列表</returns>
-        IEnumerable<TDto> QueryList<TDto>(object condition, string[] ignoreFields = null, bool isWrite = false);
+        IEnumerable<TDto> QueryList<TDto>(object condition, string[] ignoreFields = null, string orderBy = "", int top = 0, bool isWrite = false);
 
 
         /// <summary>

@@ -19,7 +19,7 @@ namespace CML.Infrastructure
             where T : class;
 
         void DebugFormat(string format, params object[] args);
-
+            
         void Debug(object message, Exception exception);
 
         void Info(object message);

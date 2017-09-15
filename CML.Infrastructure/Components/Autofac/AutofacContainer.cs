@@ -1,11 +1,6 @@
 ﻿using Autofac;
-using Autofac.Core;
 using CML.Infrastructure.Components;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CML.Infrastructure.Autofac
 {

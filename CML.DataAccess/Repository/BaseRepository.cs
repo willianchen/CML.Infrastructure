@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CML.Infrastructure.Result;
 using System.Text;
 
@@ -149,9 +148,9 @@ namespace CML.DataAccess
         /// <param name="condition"></param>
         /// <param name="isWrite"></param>
         /// <returns></returns>
-        public IEnumerable<T> QueryList(object condition, bool isWrite = false)
+        public IEnumerable<T> QueryList(object condition, int top = 0, bool isWrite = false)
         {
-            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery<T>(condition, _tableName);
+            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery<T>(condition, _tableName, top: top);
             return GetDataAccess(isWrite).Query<T>(query);
         }
 
@@ -162,9 +161,9 @@ namespace CML.DataAccess
         /// <param name="ignoreFields"></param>
         /// <param name="isWrite"></param>
         /// <returns></returns>
-        public IEnumerable<TDto> QueryList<TDto>(string[] ignoreFields = null, bool isWrite = false)
+        public IEnumerable<TDto> QueryList<TDto>(string[] ignoreFields = null, string orderBy = "", int top = 0, bool isWrite = false)
         {
-            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery<TDto>(null, _tableName, ignoreFields);
+            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery<TDto>(null, _tableName, ignoreFields, top: top);
             return GetDataAccess(isWrite).Query<TDto>(query);
         }
 
@@ -176,9 +175,9 @@ namespace CML.DataAccess
         /// <param name="ignoreFields"></param>
         /// <param name="isWrite"></param>
         /// <returns></returns>
-        public IEnumerable<TDto> QueryList<TDto>(object condition, string[] ignoreFields = null, bool isWrite = false)
+        public IEnumerable<TDto> QueryList<TDto>(object condition, string[] ignoreFields = null, string orderBy = "", int top = 0, bool isWrite = false)
         {
-            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery<TDto>(condition, _tableName, ignoreFields);
+            SqlQuery query = SqlQueryUtil.BuilderQuerySqlQuery<TDto>(condition, _tableName, ignoreFields, top: top);
             return GetDataAccess(isWrite).Query<TDto>(query);
         }
 
@@ -219,6 +218,6 @@ namespace CML.DataAccess
             return GetDataAccess().Query<TModel>(query);
         }
 
-     
+
     }
 }

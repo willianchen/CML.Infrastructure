@@ -61,6 +61,7 @@
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,12 +78,13 @@
     <Compile Include="Configurations\Configuration.cs" />
     <Compile Include="Extension\AttributeExtension.cs" />
     <Compile Include="Extension\ConcurrentDictionaryExtention.cs" />
+    <Compile Include="Extension\ExceptionExtension.cs" />
     <Compile Include="Extension\ObjectConvertExtension.cs" />
     <Compile Include="Extension\ObjectExtension.cs" />
     <Compile Include="Extension\SerializerExtension.cs" />
     <Compile Include="Extension\StringExtension.cs" />
-    <Compile Include="Logging\ILogger.cs" />
-    <Compile Include="Logging\ILoggerFactory.cs" />
+    <Compile Include="Logging\ILog.cs" />
+    <Compile Include="Logging\ILogFactory.cs" />
     <Compile Include="Logging\NLog\NLogger.cs" />
     <Compile Include="Logging\NLog\NLoggerFactory.cs" />
     <Compile Include="Mail\EmailSenderBase.cs" />
@@ -113,11 +115,13 @@
     <Compile Include="System\SystemConstant.cs" />
     <Compile Include="ThirdParty\Json\NewtonsoftJsonSerializer.cs" />
     <Compile Include="Utils\ConfigUtil.cs" />
+    <Compile Include="Utils\FileUtil.cs" />
     <Compile Include="Utils\HttpUtil.cs" />
     <Compile Include="Utils\JsonUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />
     <Compile Include="Utils\PropertyUtil.cs" />
     <Compile Include="Utils\TypeUtil.cs" />
+    <Compile Include="Utils\XmlUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
