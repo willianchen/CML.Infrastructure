@@ -78,6 +78,7 @@
     <Compile Include="Configurations\Configuration.cs" />
     <Compile Include="Extension\AttributeExtension.cs" />
     <Compile Include="Extension\ConcurrentDictionaryExtention.cs" />
+    <Compile Include="Extension\DictionaryExtension.cs" />
     <Compile Include="Extension\ExceptionExtension.cs" />
     <Compile Include="Extension\ObjectConvertExtension.cs" />
     <Compile Include="Extension\ObjectExtension.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Mail\IEmailSenderConfiguration.cs" />
     <Compile Include="Mail\MailInfo.cs" />
     <Compile Include="Mail\SendCloud\ISendCloudEmailSenderConfiguration.cs" />
+    <Compile Include="Mail\SendCloud\MailConfig.cs" />
     <Compile Include="Mail\SendCloud\SendCloudEmailSender.cs" />
     <Compile Include="Mail\SendCloud\SendCloudEmailSenderConfiguration.cs" />
     <Compile Include="Mail\Smtp\ISmtpEmailSender.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="ThirdParty\Json\NewtonsoftJsonSerializer.cs" />
     <Compile Include="Utils\ConfigUtil.cs" />
     <Compile Include="Utils\FileUtil.cs" />
+    <Compile Include="Utils\HttpClientUtil.cs" />
     <Compile Include="Utils\HttpUtil.cs" />
     <Compile Include="Utils\JsonUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />

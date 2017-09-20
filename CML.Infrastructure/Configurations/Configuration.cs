@@ -59,7 +59,6 @@ namespace CML.Infrastructure.Configurations
         public Configuration RegisterCommonComponents()
         {
             SetDefault<IJsonSerializer, NewtonsoftJsonSerializer>();
-            SetDefault<JsonUtil>();
             SetDefault<ILogFactory, NLoggerFactory>();
             //  SetDefault<IEmailSender, SendCloudEmailSender>();
             return this;
