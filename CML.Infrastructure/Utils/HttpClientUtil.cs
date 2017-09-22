@@ -49,13 +49,13 @@ namespace CML.Infrastructure.Utils
         /// <param name="url"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static async Task<string> PostRequestASJsonAsync<T>(string url, T info) where T : class
+        public static string sPostRequestASJsonAsync<T>(string url, T info) where T : class
         {
             LogUtil.Debug(string.Format("发起请求 Url:{0} 参数：{1}", url, info.ToJson()));
             var json = info.ToJson();
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await HttpClient.PostAsync(url, content);
-            var resJson = await response.Content.ReadAsStringAsync();
+            var response = HttpClient.PostAsync(url, content).Result;
+            var resJson = response.Content.ReadAsStringAsync().Result;
             LogUtil.Debug(string.Format("结束请求 Url:{0} 参数：{1}", url, resJson));
             return resJson;
         }
@@ -67,13 +67,13 @@ namespace CML.Infrastructure.Utils
         /// <param name="url"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static async Task<string> PostRequestAsync<T>(string url, T info)
+        public static string PostRequestAsync<T>(string url, T info)
         {
             LogUtil.Debug(string.Format("发起请求 Url:{0} 参数：{1}", url, info.ToJson()));
             var paraList = info.ToDictionary().Select(m => new KeyValuePair<string, string>(m.Key, m.Value.ToString()));
             var content = new FormUrlEncodedContent(paraList);
-            var response = await HttpClient.PostAsync(url, content);
-            string result = await response.Content.ReadAsStringAsync();
+            var response =  HttpClient.PostAsync(url, content).Result;
+            string result =  response.Content.ReadAsStringAsync().Result;
             LogUtil.Debug(string.Format("结束请求 Url:{0} 参数：{1}", url, result));
             return result;
         }

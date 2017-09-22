@@ -52,7 +52,7 @@ namespace CML.Infrastructure.Mail.SendCloud
 
             //暂不支持抄送
             LogUtil.Debug(mailConfig.ToJson());
-            var res = HttpClientUtil.PostRequestAsync<MailConfig>(_configuaration.SendUrl, mailConfig).Result;
+            var res = HttpClientUtil.PostRequestAsync<MailConfig>(_configuaration.SendUrl, mailConfig);
                 //HttpUtil.RequestStr(_configuaration.SendUrl, dic, mail.AttachmentFile);
             LogUtil.Debug(res);
         }
