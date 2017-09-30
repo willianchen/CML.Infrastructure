@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CML.Infrastructure", "CML.Infrastructure.csproj", "{45583FEB-DF4B-458D-9E6B-2899D164F5E0}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CML.DataAccess", "..\CML.DataAccess\CML.DataAccess.csproj", "{F69BE701-D791-4B78-B99F-1E3DE42BF39F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CML.Mvc", "..\CML.Mvc\CML.Mvc.csproj", "{07BFDD0E-7614-40DA-AFFF-7F977C0EA17D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CML.WebManage", "..\CML.WebManage\CML.WebManage.csproj", "{5EA1936B-6AFA-4B25-A1A1-F7D40948CE67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{07BFDD0E-7614-40DA-AFFF-7F977C0EA17D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07BFDD0E-7614-40DA-AFFF-7F977C0EA17D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07BFDD0E-7614-40DA-AFFF-7F977C0EA17D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EA1936B-6AFA-4B25-A1A1-F7D40948CE67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EA1936B-6AFA-4B25-A1A1-F7D40948CE67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EA1936B-6AFA-4B25-A1A1-F7D40948CE67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EA1936B-6AFA-4B25-A1A1-F7D40948CE67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

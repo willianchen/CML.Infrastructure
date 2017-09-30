@@ -18,5 +18,53 @@
         {
             return !IsNull(obj);
         }
+
+        /// <summary>
+        /// 判断字符串不为Null并且不为空且不是由空白字符组成
+        /// </summary>
+        /// <param name="input">要判断的信息</param>
+        /// <returns>如果不为Null且不为空且不是由空白字符组成则返回true</returns>
+        public static bool IsNotNullAndNotEmptyWhiteSpace(this object input)
+        {
+            return !IsNullOrEmptyWhiteSpace(input);
+        }
+
+        /// <summary>
+        /// 判断字符串为Null或者为空
+        /// </summary>
+        /// <param name="input">要判断的信息</param>
+        /// <returns>如果为Null或者为空则返回true</returns>
+        public static bool IsNullOrEmpty(this object input)
+        {
+            if (input == null)
+            {
+                return true;
+            }
+            return string.IsNullOrEmpty(input.ToString());
+        }
+
+        /// <summary>
+        /// 判断字符串不为Null并且不为空
+        /// </summary>
+        /// <param name="input">要判断的信息</param>
+        /// <returns>如果不为Null且不为空则返回true</returns>
+        public static bool IsNotNullAndNotEmpty(this object input)
+        {
+            return !IsNullOrEmpty(input);
+        }
+
+        /// <summary>
+        /// 判断字符串为Null或者为空且或者由空白字符组成
+        /// </summary>
+        /// <param name="input">要判断的信息</param>
+        /// <returns>如果为Null且或者为空且或者由空白字符组成则返回true</returns>
+        public static bool IsNullOrEmptyWhiteSpace(this object input)
+        {
+            if (input == null)
+            {
+                return true;
+            }
+            return string.IsNullOrWhiteSpace(input.ToString());
+        }
     }
 }

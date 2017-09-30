@@ -37,14 +37,14 @@ namespace CML.Mvc.Filter
         public override void OnActionExecuting(ActionExecutingContext actionContext)
         {
             //判断是否匿名访问
-            bool isAnonymous = ControllerContextUtil.IsDefineAttribute<AllowAnonymousAttribute>(actionContext);
+            bool isAnonymous = ContextUtil.IsDefineAttribute<AllowAnonymousAttribute>(actionContext);
 
             if (!isAnonymous)
             {
                 if (!loginCheck.IsLogined(actionContext))
                 {
                     //Ajax请求 返回值
-                    if (ControllerContextUtil.IsAjaxRequest(actionContext))
+                    if (ContextUtil.IsAjaxRequest(actionContext))
                     {
                         actionContext.Result = ResultUtil.NoLogin(loginCheck.GetRedirectUrl(actionContext));
                     }

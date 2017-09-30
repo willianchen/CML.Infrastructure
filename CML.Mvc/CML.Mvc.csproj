@@ -74,14 +74,19 @@
   <ItemGroup>
     <Compile Include="Authorization\ILoginChecker.cs" />
     <Compile Include="Authorization\IPermissionChecker.cs" />
+    <Compile Include="Extensions\ModelStateExtension.cs" />
     <Compile Include="Filter\AuthorizeAttribute.cs" />
+    <Compile Include="Filter\ErrorHandelAttribute.cs" />
+    <Compile Include="Filter\ModelStateAttribute.cs" />
     <Compile Include="Filter\PermissionAttribute.cs" />
+    <Compile Include="Model\HandelErrorModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result\AjaxResult.cs" />
     <Compile Include="Result\AjaxStatus.cs" />
     <Compile Include="Result\BaseJsonResult.cs" />
+    <Compile Include="Result\JavascriptContentUitl.cs" />
     <Compile Include="Result\ResultUtil.cs" />
-    <Compile Include="Utils\ControllerContextUtil.cs" />
+    <Compile Include="Utils\ContextUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CML.Infrastructure\CML.Infrastructure.csproj">

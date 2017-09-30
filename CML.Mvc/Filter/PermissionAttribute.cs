@@ -1,5 +1,6 @@
 ﻿using CML.Infrastructure.Components;
 using CML.Mvc.Authorization;
+using CML.Mvc.Result;
 using CML.Mvc.Utils;
 using System;
 using System.Collections.Generic;
@@ -111,31 +112,31 @@ namespace CML.Mvc.Filter
         public override void OnActionExecuting(ActionExecutingContext actionContext)
         {
             //判断是否跳过权限验证
-            bool isAnonymous = ControllerContextUtil.IsDefineAttribute<PassPermissionAttribute>(actionContext);
+            bool isAnonymous = ContextUtil.IsDefineAttribute<PassPermissionAttribute>(actionContext);
 
             if (!isAnonymous)
             {
-                string currentPageUrl = ControllerContextUtil.GetRequestUrl(actionContext);
-                //string parentPageUrl = currentPageUrl;
-                //if (ParentPageUrl.IsNotNullAndNotEmptyWhiteSpace())
-                //    parentPageUrl = ParentPageUrl;
+                string currentPageUrl = ContextUtil.GetRequestUrl(actionContext);
+                string parentPageUrl = currentPageUrl;
+                if (!string.IsNullOrWhiteSpace(ParentPageUrl))
+                    parentPageUrl = ParentPageUrl;
 
-                ////拼接Url 前缀
-                //if (!parentPageUrl.StartsWith("http://") && !parentPageUrl.StartsWith("https://"))
-                //    parentPageUrl = bases.Url.Scheme + "://" + bases.Url.Authority + (parentPageUrl.StartsWith("/") ? parentPageUrl : "/" + parentPageUrl);
+                //拼接Url 前缀
+                if (!parentPageUrl.StartsWith("http://") && !parentPageUrl.StartsWith("https://"))
+                    parentPageUrl = actionContext.HttpContext.Request.Url.Scheme + "://" + actionContext.HttpContext.Request.Url.Authority + (parentPageUrl.StartsWith("/") ? parentPageUrl : "/" + parentPageUrl);
 
-                //var isGranted = _permissionChecker.IsGranted(parentPageUrl, currentPageUrl, RoleEvent, PageParams);
-                //var isAjax = actionContext.HttpContext.Request.IsAjaxRequest();
+                var isGranted = _permissionChecker.IsGranted(parentPageUrl, currentPageUrl, RoleEvent, PageParams);
+                var isAjax = ContextUtil.IsAjaxRequest(actionContext);
 
-                //if (!isGranted)
-                //    if (isAjax)
-                //    {
-                //        actionContext.Result = ResultUtil.NoPerssion();
-                //    }
-                //    else
-                //    {
-                //        actionContext.Result = new ViewResult() { ViewName = "~/Views/Shared/NoPermission.cshtml" };
-                //    }
+                if (!isGranted)
+                    if (isAjax)
+                    {
+                        actionContext.Result = ResultUtil.NoPermission();
+                    }
+                    else
+                    {
+                        actionContext.Result = new ViewResult() { ViewName = "~/Views/Shared/NoPermission.cshtml" };
+                    }
             }
             base.OnActionExecuting(actionContext);
         }
